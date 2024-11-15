@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IoT Dashboard</title>
+    <link rel="stylesheet" href="styless.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="icon" type="image/x-icon" href="C:\Users\HP\Downloads\770b805d5c99c7931366c2e84e88f251.jpg">
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <div class="topnav">
+            <a class="active" href="#home">Home</a>
+            <a href="#project-description">News</a>
+            <a href="#sensor-data">Contact</a>
+            <a href="#about">About</a>
+          </div>
+        <h2>IoT Sensor Dashboard</h2>
+        
+        <!-- Using a button with JavaScript -->
+        <button id="logout-btn" class="logout-btn" onclick="window.location.href='../index.html'">Logout</button>
+        
+        <!-- Alternatively, using an anchor tag -->
+        <a href="../index.html" class="logout-btn">Logout</a> 
+
+        <div class="project-description">
+            <h2>Project Description</h2>
+            <p>This IoT project monitors environmental conditions using advanced sensors. It tracks temperature,
+                humidity, and air quality in real-time, providing valuable insights for maintaining optimal living
+                conditions.</p>
+        </div>
+
+        <div class="sensor-data">
+            <h1>ThingSpeak Graph</h1>
+
+            <!-- Embedded ThingSpeak Chart -->
+            <iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/2727350/charts/1?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15"></iframe>
+            <iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/2727350/charts/2?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15"></iframe>
+            <iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/2727350/charts/3?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15"></iframe>
+            <iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/2727350/charts/4?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15"></iframe>
+            <iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/2727350/charts/5?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15"></iframe>
+
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

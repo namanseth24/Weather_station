@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forgot Password</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="forgotContainer">
+
+        <h1>Forgot Password</h1>
+        <p>IOT based Advanced Weather Station</p>
+
+        <div id="step1">
+            <h2>Step 1: Enter Email address</h2>
+            <input type="email" id="email" placeholder="Enter your email address" />
+            <button onclick="sendOtp()">Send OTP</button>
+        </div>
+
+        <div id="step2" style="display: none;">
+            <h2>Step 2: Verify OTP</h2>
+            <input type="password" id="otp" placeholder="Enter OTP" />
+            <button onclick="verifyOtp()">Verify OTP</button>
+        </div>
+
+        <div id="step3" style="display: none;">
+            <h2>Step 3: Change Password</h2>
+            <input type="password" id="newPassword" placeholder="Enter new password" />
+            <input type="password" id="confirmPassword" placeholder="Confirm new password" />
+            <button onclick="changePassword()">Change Password</button>
+        </div>
+
+        <div id="message" class="message"></div>
+    </div>
+    <script>
+        let otpSent = false;
+        let otpVerified = false;
+
+        function sendOtp() {
+            const contact = document.getElementById('email').value;
+            if (contact) {
+                document.getElementById('step1').style.display = 'none';
+                document.getElementById('step2').style.display = 'block';
+                document.getElementById('message').textContent = "OTP sent to " + contact;
+                otpSent = true;
+            } else {
+                document.getElementById('message').textContent = "Please enter a valid email ";
+            }
+        }
+
+        function verifyOtp() {
+            const otp = document.getElementById('otp').value;
+            if (otp === "123456") {
+                document.getElementById('step2').style.display = 'none';
+                document.getElementById('step3').style.display = 'block';
+                document.getElementById('message').textContent = "OTP verified!";
+                otpVerified = true;
+            } else {
+                document.getElementById('message').textContent = "Invalid OTP. Please try again.";
+            }
+        }
+    </script>
+    <script src="script.js"></script>
+</body>
+
+</html>

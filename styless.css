@@ -1,0 +1,173 @@
+/* General Page Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url('https://i.gifer.com/srG.gif');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+/* Container for Login/Sign Up Forms */
+.login-container,
+.signup-container,
+.dashboard-container {
+    width: 350px;
+    padding: 40px;
+    background-color: rgba(255, 255, 255, 0.285);
+    /* Very transparent white */
+    -webkit-backdrop-filter: blur(10px);
+    /* For Safari support */
+    backdrop-filter: blur(10px);
+    /* This creates the blur effect */
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+/* Dashboard container specific styles */
+.dashboard-container {
+    width: 80%;
+    max-width: 1000px;
+    margin: 20px auto;
+}
+
+/* Input Fields */
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    margin: 12px 0;
+    border: 1px solid rgba(204, 204, 204, 0.5);
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+/* Buttons */
+button[type="submit"],
+.logout-btn {
+    width: 100%;
+    padding: 12px;
+    margin: 12px 0;
+    background-color: rgba(40, 167, 69, 0.8);
+    /* Semi-transparent green */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+/* Hover Effect for Buttons */
+button[type="submit"]:hover,
+.logout-btn:hover {
+    background-color: rgba(33, 136, 56, 0.9);
+    /* Darker semi-transparent green on hover */
+}
+
+/* Links */
+a {
+    color: #28a745;
+    /* Green color for links */
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Headings */
+h2,
+h3 {
+    color: #000000;
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Labels */
+label {
+    display: block;
+    text-align: left;
+    margin-bottom: 5px;
+    color: #fff;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Logout button */
+.logout-btn {
+    width: auto;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+/* Project description and sensor data */
+.project-description,
+.sensor-data {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: rgba(248, 249, 250, 0.1);
+    -webkit-backdrop-filter:blur();
+    backdrop-filter: blur;
+}
+
+.topnav {
+    background-color: #333;
+    overflow: hidden;
+  }
+  
+  /* Style the links inside the navigation bar */
+  .topnav a {
+    float: left;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+  }
+  
+  /* Change the color of links on hover */
+  .topnav a:hover {
+    background-color: #ddd;
+    color: black;
+  }
+  
+  /* Add a color to the active/current link */
+  .topnav a.active {
+    background-color: #04AA6D;
+    color: white;
+  }
+
+  /* Text fade-in animation */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+h2,
+p,
+iframe,
+h1,
+.dashboard-container,
+.signup-container,
+.login-container {
+    animation: fadeIn 1s ease-in-out;
+}

@@ -1,4 +1,4 @@
-document.getElementById("loginForm").addEventListener("submit", function(event) {
+document.getElementById("loginForm").addEventListener("submit", function (event) {
     event.preventDefault(); // Prevent the default form submission
 
     const email = document.getElementById("email").value;
@@ -9,15 +9,14 @@ document.getElementById("loginForm").addEventListener("submit", function(event) 
     console.log("Password:", password);*/
 
     // For demonstration, we will just alert the user
-    alert("Login attempted with:\nEmail: " + email + "\nPassword: " + password);
+    /*alert("Login attempted with:\nEmail: " + email + "\nPassword: " + password);*/
 });
 
 // Event listeners for links
-document.getElementById("signup").addEventListener("click", function() {
+document.getElementById("signup").addEventListener("click", function () {
     alert("Redirecting to Sign Up page...");
 });
 
-document.getElementById("forgotPassword").addEventListener("click", function() {
+document.getElementById("forgotPassword").addEventListener("click", function () {
     alert("Redirecting to Forgot Password page...");
 });
-

@@ -41,6 +41,7 @@
         let otpVerified = false;
 
         function sendOtp() {
+            event.preventDefault();
             const contact = document.getElementById('email').value;
             if (contact) {
                 document.getElementById('step1').style.display = 'none';
@@ -48,23 +49,25 @@
                 document.getElementById('message').textContent = "OTP sent to " + contact;
                 otpSent = true;
             } else {
-                document.getElementById('message').textContent = "Please enter a valid email ";
+                alert("Please enter a valid email ");
             }
         }
 
         function verifyOtp() {
+
             const otp = document.getElementById('otp').value;
             if (otp === "123456") {
                 document.getElementById('step2').style.display = 'none';
                 document.getElementById('step3').style.display = 'block';
-                document.getElementById('message').textContent = "OTP verified!";
+                alert("OTP verified!");
                 otpVerified = true;
             } else {
-                document.getElementById('message').textContent = "Invalid OTP. Please try again.";
+                alert("Invalid OTP. Please try again.");
             }
         }
 
         function changePassword() {
+            event.preventDefault();
             const newPassword = document.getElementById('newPassword').value;
             const confirmPassword = document.getElementById('confirmPassword').value;
 

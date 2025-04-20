@@ -13,12 +13,12 @@
 <body>
     <div class="dashboard-container">
         <h2>IoT Sensor Dashboard</h2>
-        
+
         <!-- Using a button with JavaScript -->
         <button id="logout-btn" class="logout-btn" onclick="window.location.href='index.html'">Logout</button>
-        
+
         <!-- Alternatively, using an anchor tag -->
-        <a href="index.html" class="logout-btn">Logout</a> 
+        <a href="index.html" class="logout-btn">Logout</a>
 
         <div class="project-description">
             <h2>Project Description</h2>
@@ -31,18 +31,105 @@
             <h1>ThingSpeak Graph</h1>
 
             <!-- Embedded ThingSpeak Chart -->
-            <iframe title="Temperature" width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/2701665/charts/1?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&title=temprature&type=line"></iframe>
-            <iframe title="Humidity" width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/2701665/charts/2?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&title=humidity&type=line"></iframe>
-            <iframe title="AQI" width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/2701665/charts/3?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&title=air+quality+index&type=line"></iframe>
-            <iframe title="UV" width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/2701665/charts/4?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&title=uv+radiation&type=line"></iframe>
-            <iframe title="Hall Sensor" width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/2701665/charts/5?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&title=wind+speed&type=line"></iframe>
-            <iframe title="Pressure" width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/2701665/charts/5?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&title=wind+speed&type=line"></iframe>
-            <iframe title="Altitude" width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/2701665/charts/7?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&title=altitude&type=line"></iframe>
+            <div class="chart-wrapper">
+                <div class="chart-box"><canvas id="pressureChart"></canvas></div>
+                <div class="chart-box"><canvas id="temperatureChart"></canvas></div>
+                <div class="chart-box"><canvas id="humidityChart"></canvas></div>
+                <div class="chart-box"><canvas id="uvChart"></canvas></div>
+                <div class="chart-box"><canvas id="aqiChart"></canvas></div>
+                <div class="chart-box"><canvas id="altitudeChart"></canvas></div>
+                <div class="chart-box"><canvas id="hallChart"></canvas>
 
+                </div>
+
+                <script>
+                    const token = "eBWKuLygoQpXpw6nsvNjYWjGeU_THR2y"; // Replace this with your actual token
+
+                    const sensors = [
+                        { id: "pressureChart", pin: "v0", label: "Pressure (Pa)", color: "rgba(54, 162, 235, 1)" },
+                        { id: "temperatureChart", pin: "v1", label: "Temperature (°C)", color: "rgba(255, 99, 132, 1)" },
+                        { id: "humidityChart", pin: "v2", label: "Humidity (%)", color: "rgba(75, 192, 192, 1)" },
+                        { id: "uvChart", pin: "v3", label: "UV Index", color: "rgba(255, 206, 86, 1)" },
+                        { id: "aqiChart", pin: "v4", label: "Air Quality Index (AQI)", color: "rgba(153, 102, 255, 1)" },
+                        { id: "altitudeChart", pin: "dummy_altitude", label: "Altitude (m)", color: "rgba(255, 159, 64, 1)", dummy: true },
+                        { id: "hallChart", pin: "dummy_hall", label: "Hall Sensor Value", color: "rgba(0, 204, 153, 1)", dummy: true }
+                    ];
+
+                    const charts = {};
+
+                    function createChart(sensor) {
+                        const ctx = document.getElementById(sensor.id).getContext('2d');
+                        const config = {
+                            type: 'line',
+                            data: {
+                                labels: [],
+                                datasets: [{
+                                    label: sensor.label,
+                                    data: [],
+                                    borderColor: sensor.color,
+                                    backgroundColor: sensor.color.replace("1)", "0.2)"),
+                                    fill: true,
+                                    tension: 0.4
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                                maintainAspectRatio: false,
+                                scales: {
+                                    x: {
+                                        title: { display: true, text: "Time" }
+                                    },
+                                    y: {
+                                        beginAtZero: true,
+                                        title: { display: true, text: sensor.label }
+                                    }
+                                }
+                            }
+                        };
+                        charts[sensor.pin] = new Chart(ctx, config);
+                    }
+
+                    async function fetchSensorData(sensor) {
+                        const now = new Date().toLocaleTimeString();
+                        let value;
+
+                        try {
+                            if (sensor.dummy) {
+                                // Generate dummy value for simulation
+                                value = (Math.random() * 100 + (sensor.pin === 'dummy_altitude' ? 200 : 0)).toFixed(2);
+                            } else {
+                                const res = await fetch(`https://blynk.cloud/external/api/get?token=${token}&${sensor.pin}`);
+                                value = await res.text();
+                            }
+
+                            const chart = charts[sensor.pin];
+                            chart.data.labels.push(now);
+                            chart.data.datasets[0].data.push(parseFloat(value));
+
+                            if (chart.data.labels.length > 10) {
+                                chart.data.labels.shift();
+                                chart.data.datasets[0].data.shift();
+                            }
+
+                            chart.update();
+                        } catch (err) {
+                            console.error(`Error fetching ${sensor.label}`, err);
+                        }
+                    }
+
+                    sensors.forEach(sensor => {
+                        createChart(sensor);
+                        fetchSensorData(sensor);
+                        setInterval(() => fetchSensorData(sensor), 5000);
+                    });
+                </script>
+
+
+
+            </div>
         </div>
-    </div>
 
-    <script src="script.js"></script>
+        <script src="script.js"></script>
 </body>
 
 </html>

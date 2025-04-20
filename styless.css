@@ -14,6 +14,36 @@ body {
     background-attachment: fixed;
 }
 
+/*chart style*/
+.chart-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 30px 10px;
+  }
+
+  .chart-box {
+    background-color: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 100%;
+    max-width: 400px;
+    box-sizing: border-box;
+  }
+
+  canvas {
+    width: 100% !important;
+    height: auto !important;
+  }
+
+  @media (max-width: 600px) {
+    .chart-box {
+      max-width: 100%;
+    }
+  }
+
 /* Container for Login/Sign Up Forms */
 .login-container,
 .signup-container,
@@ -27,7 +57,7 @@ body {
     backdrop-filter: blur(10px);
     /* This creates the blur effect */
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
+    
     text-align: center;
     border: 1px solid rgba(255, 255, 255, 0.18);
 }
@@ -116,7 +146,8 @@ label {
 .project-description,
 .sensor-data {
     margin-bottom: 20px;
-    padding: 15px;
+    padding: 5px;
+    border-radius: 10px;
     background-color: rgba(248, 249, 250, 0.1);
     -webkit-backdrop-filter:blur();
     backdrop-filter: blur;

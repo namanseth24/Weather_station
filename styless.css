@@ -64,7 +64,7 @@ body {
 
 /* Dashboard container specific styles */
 .dashboard-container {
-    border-radius: 16px;
+    border-radius: 16px !important;
     width: 80%;
     max-width: 1000px;
     margin: 20px auto;

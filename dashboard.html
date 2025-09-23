@@ -94,14 +94,15 @@
                         let value;
 
                         try {
-                            if (sensor.dummy) {
+                            /*if (sensor.dummy) {
                                 // Generate dummy value for simulation
                                 value = (Math.random() * 100 + (sensor.pin === 'dummy_altitude' ? 200 : 0)).toFixed(2);
                             } else {
                                 const res = await fetch(`https://blynk.cloud/external/api/get?token=${token}&${sensor.pin}`);
                                 value = await res.text();
-                            }
+                            }*/
 
+                            value = (Math.random() * 100 + (sensor.pin === 'dummy_altitude' ? 200 : 0)).toFixed(2);
                             const chart = charts[sensor.pin];
                             chart.data.labels.push(now);
                             chart.data.datasets[0].data.push(parseFloat(value));
@@ -133,3 +134,4 @@
 </body>
 
 </html>
+
